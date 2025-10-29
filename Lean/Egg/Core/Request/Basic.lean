@@ -104,7 +104,7 @@ private inductive Explanation.Kind.Raw where
   | eqTrue
 deriving Inhabited
 
-private def Explanation.Kind.Raw.toKind? : Raw → Option Explanation.Kind
+protected def Explanation.Kind.Raw.toKind? : Raw → Option Explanation.Kind
   | none       => .none
   | sameEClass => some .sameEClass
   | eqTrue     => some .eqTrue

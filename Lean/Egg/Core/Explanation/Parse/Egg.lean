@@ -40,7 +40,7 @@ private def Expression.pp (levels := false) :  Expression → String
   | unknown => "???"
 
 -- If `synthesize` is true, we try to fill type class instance holes immediately by synthesis.
-private def Expression.toExpr (e : Expression) (synthesize := false) : MetaM Expr := do
+protected def Expression.toExpr (e : Expression) (synthesize := false) : MetaM Expr := do
   go e
 where
   go : Expression → MetaM Expr
