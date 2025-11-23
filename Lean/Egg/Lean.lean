@@ -15,14 +15,14 @@ partial def List.qsortM [Monad m] (comp : α → α → m Bool) [BEq α] : List 
     return (← fst.qsortM comp) ++ [x] ++ (← lst.qsortM comp)
 
 partial def String.lineCount (s : String) : Nat :=
-  go 0 0
+  go ⟨0, Pos.Raw.isValid_zero⟩ 0
 where
-  go (pos : Pos.Raw) (count : Nat) : Nat :=
-    if Pos.Raw.atEnd s pos then
+  go (pos : ValidPos s) (count : Nat) : Nat :=
+    if h : pos = s.endValidPos then
       count
     else
-      let inc := if (Pos.Raw.get s pos) == '\n' then 1 else 0
-      go (Pos.Raw.next s pos) (count + inc)
+      let inc := if (ValidPos.get pos h) == '\n' then 1 else 0
+      go (ValidPos.next pos h) (count + inc)
 
 namespace Std.HashMap
 
