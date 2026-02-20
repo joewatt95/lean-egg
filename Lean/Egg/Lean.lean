@@ -17,12 +17,12 @@ partial def List.qsortM [Monad m] (comp : α → α → m Bool) [BEq α] : List 
 partial def String.lineCount (s : String) : Nat :=
   go ⟨0, Pos.Raw.isValid_zero⟩ 0
 where
-  go (pos : ValidPos s) (count : Nat) : Nat :=
-    if h : pos = s.endValidPos then
+  go (pos : Pos s) (count : Nat) : Nat :=
+    if h : pos = s.endPos then
       count
     else
-      let inc := if (ValidPos.get pos h) == '\n' then 1 else 0
-      go (ValidPos.next pos h) (count + inc)
+      let inc := if pos.get h == '\n' then 1 else 0
+      go (pos.next h) (count + inc)
 
 namespace Std.HashMap
 
